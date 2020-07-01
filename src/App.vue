@@ -5,6 +5,9 @@
       <router-link to="/about">About</router-link>
     </div>
     <router-view />
+    <!-- 命名视图 -->
+    <router-view name="email" />
+    <router-view name="tel" />
   </div>
 </template>
 
