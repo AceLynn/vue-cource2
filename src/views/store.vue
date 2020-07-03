@@ -2,11 +2,13 @@
   <div class="store">
     store page
     <!-- <a-input :value="inputValue" @input="handleInput"></a-input> -->
-    <!-- <a-input v-model="inputValue"></a-input>
-    <p>{{ inputValue }}</p> -->
+    <!-- <a-input :value="stateValue" @input="stateValueChange"></a-input> -->
+    <!-- <p>stateValue: {{ stateValue }}</p> -->
+    <a-input v-model="stateValue"></a-input>
+    <p>stateValue: {{ stateValue }}</p>
 
     <!-- 兄弟组件之间的通信可以通过父组件进行 -->
-    <a-input @input="handleInput"></a-input>
+    <!-- <a-input @input="handleInput"></a-input> -->
     <a-show :content="inputValue"></a-show>
     <p>{{ inputValue }} last letter is -> {{ inputValueLastLetter }}</p>
     <br />
@@ -69,7 +71,17 @@ export default {
       userName: (state) => state.user.userName,
       todoList: (state) => (state.todo ? state.todo.todoList : []),
       todoList1: (state) => (state.user.todo ? state.user.todo.todoList1 : []),
+      // stateValue: (state) => state.stateValue,
     }),
+    stateValue: {
+      get() {
+        // 获取值
+        return this.$store.state.stateValue;
+      },
+      set(val) {
+        this.SET_STATE_VALUE(val);
+      },
+    },
     ...mapGetters(["appNameWithVersion"]),
     inputValueLastLetter() {
       return this.inputValue.substr(-1, 1);
@@ -82,7 +94,7 @@ export default {
   methods: {
     // mutations是方法，不能放computed中
     // actions用于异步请求
-    ...mapMutations(["SET_APP_NAME"]),
+    ...mapMutations(["SET_APP_NAME", "SET_STATE_VALUE"]),
     ...mapActions(["updateAppName"]),
     // ...mapActions("user/subUser", ["updateAppName"]),
     handleInput(val) {
@@ -118,6 +130,9 @@ export default {
           todoList1: ["学习Mutations333", "学习Mutations1", "学习Mutations2"],
         },
       });
+    },
+    stateValueChange(val) {
+      this.SET_STATE_VALUE(val);
     },
   },
 };

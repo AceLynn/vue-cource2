@@ -1,4 +1,4 @@
-import vue from "vue";
+// import vue from "vue";
 
 const mutations = {
   SET_APP_NAME(state, payload) {
@@ -11,6 +11,9 @@ const mutations = {
 
     // state.js 里有初始化appversion
     state.appVersion = "v3.0";
+  },
+  SET_STATE_VALUE(state, value) {
+    state.stateValue = value;
   },
 };
 
