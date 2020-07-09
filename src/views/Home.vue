@@ -13,7 +13,8 @@
 // @ is an alias to /src
 // import HelloWorld from "@/components/HelloWorld.vue";
 
-import axios from "axios";
+// import axios from "axios";
+import { getUserInfo } from "@/api/user";
 
 export default {
   name: "Home",
@@ -28,7 +29,10 @@ export default {
   },
   methods: {
     getInfo() {
-      this.$axios("/getUserInfo").then((res) => {
+      // this.$axios.post("/getUserInfo").then((res) => {
+      //   console.log(res);
+      // });
+      getUserInfo({ userId: 21 }).then((res) => {
         console.log(res);
       });
     },
