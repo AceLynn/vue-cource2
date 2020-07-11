@@ -34,6 +34,12 @@ export default [
       import(/* webpackChunkName: "index" */ "../views/count-to.vue"),
   },
   {
+    path: "/split-pane",
+    name: "split-pane",
+    component: () =>
+      import(/* webpackChunkName: "index" */ "../views/split-pane.vue"),
+  },
+  {
     path: "/named_view",
     components: {
       default: () => import("@/views/About.vue"),
