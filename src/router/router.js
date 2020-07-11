@@ -28,6 +28,12 @@ export default [
       import(/* webpackChunkName: "index" */ "../views/Argu.vue"),
   },
   {
+    path: "/count-to",
+    name: "count-to",
+    component: () =>
+      import(/* webpackChunkName: "index" */ "../views/count-to.vue"),
+  },
+  {
     path: "/named_view",
     components: {
       default: () => import("@/views/About.vue"),
