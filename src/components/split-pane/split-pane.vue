@@ -1,14 +1,26 @@
 <template>
   <div class="split-pane-wrapper" ref="outer">
-    <div class="pane pane-left" :style="{ width: leftOffsetPercent }">
-      <button @click="click">click</button>
+    <div
+      class="pane pane-left"
+      :style="{
+        width: leftOffsetPercent,
+        paddingRight: `${triggerWidth / 2}px`,
+      }"
+    >
+      <!-- <button @click="click">click</button> -->
+      <slot name="left"></slot>
     </div>
     <div
       class="pane-trigger"
       @mousedown="handleMousedown"
       :style="{ left: triggerLeft, width: `${triggerWidth}px` }"
     ></div>
-    <div class="pane pane-right" :style="{ left: leftOffsetPercent }"></div>
+    <div
+      class="pane pane-right"
+      :style="{ left: leftOffsetPercent, paddingLeft: `${triggerWidth / 2}px` }"
+    >
+      <slot name="right"></slot>
+    </div>
   </div>
 </template>
 
@@ -16,6 +28,10 @@
 export default {
   name: "SplitPane",
   props: {
+    value: {
+      type: Number,
+      default: 0.5,
+    },
     triggerWidth: {
       type: Number,
       default: 8,
@@ -31,7 +47,7 @@ export default {
   },
   data() {
     return {
-      leftOffset: 0.3,
+      // leftOffset: 0.3,
       isMove: false,
       initOffset: 0, // 拖动条初始宽度
     };
@@ -39,10 +55,10 @@ export default {
   computed: {
     // vue 里都从更改数据入手，进来不要修改 DOM
     leftOffsetPercent() {
-      return `${this.leftOffset * 100}%`;
+      return `${this.value * 100}%`;
     },
     triggerLeft() {
-      return `calc(${this.leftOffset * 100}% - ${this.triggerWidth / 2}px)`;
+      return `calc(${this.value * 100}% - ${this.triggerWidth / 2}px)`;
     },
   },
   methods: {
@@ -74,7 +90,10 @@ export default {
       if (offsetPercent > this.max) {
         offsetPercent = this.max;
       }
-      this.leftOffset = offsetPercent;
+      // this.leftOffset = offsetPercent;
+      // this.$emit("input", offsetPercent);
+      // value.sync
+      this.$emit("update:value", offsetPercent);
       // event.pageX;
     },
     handleMouseup() {
@@ -116,6 +135,8 @@ export default {
       background: purple;
       top: 0;
       z-index: 1;
+      user-select: none;
+      cursor: col-resize;
     }
   }
 }
