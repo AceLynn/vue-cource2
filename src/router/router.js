@@ -8,6 +8,12 @@ export default [
     props: (route) => ({
       food: route.query.food,
     }),
+    beforeEnter: (to, from, next) => {
+      if (from.name !== "login") {
+        console.log("这不是从登录页跳转过来的");
+      }
+      next();
+    },
   },
   {
     path: "/about",
@@ -38,6 +44,12 @@ export default [
     name: "menu-page",
     component: () =>
       import(/* webpackChunkName: "index" */ "../views/menu-page.vue"),
+  },
+  {
+    path: "/login",
+    name: "login",
+    component: () =>
+      import(/* webpackChunkName: "index" */ "../views/login.vue"),
   },
   {
     path: "/render-page",

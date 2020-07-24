@@ -28,4 +28,24 @@ const router = new VueRouter({
   routes,
 });
 
+const HAS_LOGINED = false;
+router.beforeEach((to, from, next) => {
+  // to.meta && setTitle(to.meta.title);
+  if (to.name != "login") {
+    if (HAS_LOGINED) {
+      next();
+    } else {
+      next({ name: "login" });
+    }
+  } else {
+    if (HAS_LOGINED) {
+      next({ name: "home" });
+    } else {
+      next();
+    }
+  }
+});
+
+// router.afterEach((to, from) => {});
+
 export default router;

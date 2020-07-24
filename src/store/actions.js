@@ -1,4 +1,5 @@
 import { getAppName } from "@/api/app";
+import { login } from "@/api/user";
 const actions = {
   // changeAppNameSync1({ commit }) {},
   // changeAppNameSync2(obj) {
@@ -37,6 +38,15 @@ const actions = {
   },
   actions2(val) {
     console.log(val);
+  },
+  login({ commit }, { userName, password }) {
+    login({ userName, password })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   },
 };
 
